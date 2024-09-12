@@ -6,6 +6,11 @@ interface Dataqey {
     key: String
 }
 
+interface DataSide {
+    name: String,
+    id: String
+}
+
 interface DataItem {
     id: number;
     name: string;
@@ -15,9 +20,10 @@ interface DataItem {
     timer: string;
     status: number;
     type: String;
+    var: String;
     qeys: Dataqey[];
+    sides: DataSide[];
 }
-
 
 const Data: React.FC = () => {
     const [data, setData] = useState<DataItem[]>([]);
@@ -28,7 +34,6 @@ const Data: React.FC = () => {
 
     useEffect(() => {
         fetchData();
-
     }, []);
 
     const fetchData = async () => {
@@ -48,6 +53,7 @@ const Data: React.FC = () => {
             }
             const res = await response.json();
             const data: DataItem[] = res.data;
+            console.log(data);
             setData(data);
         } catch (error) {
             if (error instanceof Error) {
@@ -130,7 +136,17 @@ const Data: React.FC = () => {
                                 <tr key={item.id}>
                                     <td>{index + 1}</td>
                                     <td>{item.name}</td>
-                                    <td>{item.type}</td>
+                                    <td>{item.type.toUpperCase()}
+                                        <br />
+                                        {item.type === 'tanding' ?
+                                            null :
+                                            (
+                                                item.var.toLowerCase()
+
+                                            )
+                                        }
+                                        <br />
+                                    </td>
                                     <td>{item.klass}</td>
                                     <td>{item.event}</td>
                                     <td>
@@ -140,6 +156,14 @@ const Data: React.FC = () => {
                                             {item.qeys.map((qey, index) => (
                                                 <li key={index}>
                                                     <strong>{qey.name} :</strong> {qey.key}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <strong>Peserta</strong>                               
+                                        <ul className="list-unstyled">
+                                            {item.sides.map((side, index) => (
+                                                <li key={index}>
+                                                    {side.name}
                                                 </li>
                                             ))}
                                         </ul>
