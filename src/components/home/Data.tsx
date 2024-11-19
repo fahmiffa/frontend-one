@@ -30,10 +30,13 @@ const Data: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [btnClose, buttonClose] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [showForm, setShowForm] = useState<boolean>(false);
+
+    const [showData, setShowData] = useState<boolean>(false);
+    const [showForm, setShowForm] = useState<boolean>(false);    
 
     useEffect(() => {
         fetchData();
+        setShowData(true);
     }, []);
 
     const fetchData = async () => {
@@ -53,7 +56,6 @@ const Data: React.FC = () => {
             }
             const res = await response.json();
             const data: DataItem[] = res.data;
-            console.log(data);
             setData(data);
         } catch (error) {
             if (error instanceof Error) {
@@ -72,36 +74,47 @@ const Data: React.FC = () => {
     };
 
     const handleCloseForm = () => {
-
+        setShowData(false);
         setShowForm(false);
         buttonClose(false);
         fetchData();
     };
 
     const deleteData = async (id: number) => {
-        try {
-            const token = 'mysecrettoken';
-            const response = await fetch(`http://localhost:3000/api/delete/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to delete item');
-            }
-
-            fetchData();
-            alert('Data deleted successfully');
-        } catch (error) {
-            if (error instanceof Error) {
-                setError(error.message);
-            } else {
-                setError('An unexpected error occurred');
-            }
+        const confirmed = window.confirm('Are you sure you want to delete this item?');
+        if (confirmed) 
+        {
+            try {
+                const token = 'mysecrettoken';
+                const response = await fetch(`http://localhost:3000/api/delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to delete item');
+                }
+    
+                fetchData();
+                alert('Data deleted successfully');
+            } catch (error) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError('An unexpected error occurred');
+                }
+            }            
         }
+
+    };
+
+    const openData = async (id: number) => {
+        setShowForm(false);
+        alert(id); 
+        buttonClose(true);
     };
 
     if (loading) return <div className="container mt-5"><div className="alert alert-info">Loading...</div></div>;
@@ -115,8 +128,7 @@ const Data: React.FC = () => {
                 <button className="btn btn-danger btn-sm mb-4 rounded-pill" onClick={handleCloseForm}><i className='bi bi-x'></i> Cancel</button>
             ) : null}
             {showForm && <Add onClose={handleCloseForm} />}
-
-            {!showForm ? (
+            {showData ? (
                 <div className="table-responsive">
                     <table className="table table-bordered">
                         <thead>
@@ -177,10 +189,16 @@ const Data: React.FC = () => {
                                     </td>
                                     <td>
                                         <button
-                                            className="btn btn-danger btn-sm"
+                                            className="btn btn-danger btn-sm me-1"
                                             onClick={() => deleteData(item.id)}
                                         >
                                             <i className='bi bi-trash'></i>
+                                        </button>
+                                        <button
+                                            className="btn btn-primary btn-sm"
+                                            onClick={() => openData(item.id)}
+                                        >
+                                            <i className='bi bi-controller'></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -189,6 +207,7 @@ const Data: React.FC = () => {
                     </table>
                 </div>
             ) : null}
+
         </div>
     );
 };

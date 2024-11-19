@@ -1,0 +1,143 @@
+.number-display {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.number-display-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.number-display-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.number-display-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.number-display-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 9999;
+}
+
+.overlay-content {
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+.border {
+  border: 1px solid black !important;
+  border-radius: 5px;
+}
+
+.vs {
+  top: 50%;
+}
+
+.line {
+  z-index: -8;
+  right: 88%;
+  top: 50%;
+  position: absolute;
+  width: 100%;
+  border: 1px solid;
+}
+
+.borderU {
+  border: 1px solid;
+  border-left: none;
+  border-radius: 3px;
+}
+
+.ms-5 {
+  margin-left: 3.5rem !important;
+}
+
+.vrChild {
+  background: white;
+  position: absolute;
+  top: 25%;
+  height: 50%;
+  width: 11%;
+  z-index: -1;
+}
+
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.win {
+  position: absolute;
+  top: 50%;
+  left: 56%;
+  width: 8rem;
+}
+.vrFinal {
+  background: white;
+  position: absolute;
+  top: 25%;
+  width: 40%;
+  left: 13%;
+  height: 50%;
+  z-index: -5;
+}
+
+.second{
+  left: 15%;
+  top: 35%;
+}
+
+.vrSemi {
+  background: white;
+  position: absolute;
+  top: 20%;
+  width: 28%;
+  height: 20%;
+  z-index: -2;
+}
+
+.limit {
+  max-width: 600px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cols-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.col-3 .border {
+  width: 100px;
+  height: 50px;
+  margin: 10px 0;
+}

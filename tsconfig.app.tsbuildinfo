@@ -1,1 +1,1 @@
-{"root":["./src/add.tsx","./src/app.tsx","./src/data.tsx","./src/main.tsx","./src/vite-env.d.ts"],"version":"5.6.2"}
+{"root":["./src/app.tsx","./src/sockets.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/device.tsx","./src/components/gelanggang.tsx","./src/components/head.tsx","./src/components/kelas.tsx","./src/components/liga.tsx","./src/components/peserta.tsx","./src/components/navbar.tsx","./src/components/home/add.tsx","./src/components/home/data.tsx","./src/components/home/home.tsx","./src/services/api.ts"],"version":"5.6.2"}
